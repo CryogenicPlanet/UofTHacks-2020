@@ -1,1 +1,1 @@
-export const weatherKey = "242ee26bf287dff86c6d832d17b06c78";
+export const weatherKey = "7d9786416a423e7016f670fe40689b8c";

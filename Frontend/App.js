@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Alert, Text, View, Button, FlatList, StyleSheet } from 'react-native';
+import { Alert, Text, View, TouchableOpacity, SectionList, StyleSheet, StatusBar } from 'react-native';
 import styled from 'styled-components';
-import { getHourlyWeatherData, getSixteenDayWeatherData, getClothData } from './utillity.js';
+import SwipeUpDown from 'react-native-swipe-up-down-fix';
+import { Ionicons } from '@expo/vector-icons';
+import { getCurrentWeatherData, getSixteenDayWeatherData, getClothData } from './utillity.js';
 
 const options = {
     enableHighAccuracy: true,
@@ -30,25 +32,56 @@ export default class App extends Component {
 
     componentDidMount() {
         // this.findCoordinate();
-        console.log(getHourlyWeatherData())
+        console.log(getCurrentWeatherData())
            
     }
   
     render() {
         return (
             <Container>
+                <StatusBar backgroundColor="blue" barStyle="light-content" />
+                <LocText>Toronto, ON</LocText>
                 <TempContainer>
-                    <TempText>12°C</TempText>
+                    <TempText>-12</TempText>
+                    <Text style={{fontSize: 30, color: 'white', marginTop: 35}}>°C</Text>
                 </TempContainer>
-                <View style={{height: 100, backgroundColor: 'grey', marginTop: 50}}>
-                    <FlatList data={tempData} renderItem={({item}) => (
-                            <WeatherButton color={'white'} onPress={()=>{}} title={item.title}>
-                                <WeatherText>{item.temp}</WeatherText>
+                <ConditionContainer>
+                    <Ionicons name="ios-snow" style={{marginTop: 5}} size={32} color='white' />
+                    <Text style={{fontSize: 36, color: 'white', marginLeft: 10}}>Snowy</Text>
+                </ConditionContainer>
+                <InfoContainer>
+                    <InfoPanel>
+                        <Ionicons name="ios-water" size={32} color='white' />
+                        <InfoText>80%</InfoText>
+                    </InfoPanel>
+                    <InfoPanel>
+                        <Ionicons name="ios-thermometer" size={32} color='white' />
+                        <InfoText>-15°C</InfoText>
+                    </InfoPanel>
+                    <InfoPanel>
+                        <Ionicons name="ios-cloud-outline" size={32} color='white' />
+                        <InfoText>12km/h</InfoText>
+                    </InfoPanel>
+                </InfoContainer>
+                <View style={{height: 200, alignItems: 'center', marginTop: 10, alignSelf: 'stretch'}}>
+                    <SectionList contentContainerStyle={styles.DataList} sections={tempData}
+                        keyExtractor={(item, index) => index.toString()} scrollEnabled={false}
+                        renderItem={({item}) => (
+                            <WeatherButton color={'white'} onPress={()=>{}}>
+                                {/* Icon */}
+                                <View style={{}}>
+                                    <WeatherText>{item.day}</WeatherText>
+                                </View>
+                                <View style={{flexDirection: 'row'}}>
+                                    <WeatherText>{item.high}</WeatherText>
+                                    <WeatherText marginLeft={'20px'} color="grey">{item.low}</WeatherText>
+                                </View>
                             </WeatherButton>
-                        )}
-                        horizontal={true} contentContainerStyle={styles.DataList}>
-                    </FlatList>
+                        )}>
+                    </SectionList>
                 </View>
+                {/* <SwipeUpDown style={{ backgroundColor: 'green' }}>
+                </SwipeUpDown> */}
             </Container>
         )
 
@@ -57,79 +90,115 @@ export default class App extends Component {
 
 const tempData = [
     {
-        id: '1',
-        title: '1:00am',
-        temp: '12°C'
+        key: '1',
+        title: 'Sunday',
+        data: [
+            {day: 'Sunday', high: '-12°C', low: '-13°C'}
+        ]
     },
     {
-        id: '2',
-        title: '2:00am',
-        temp: '-12°C'
+        key: '2',
+        title: 'Monday',
+        data: [
+            {day: 'Monday', high: '12°C', low: '1°C'}
+        ]
     },
     {
-        id: '3',
-        title: '3:00am',
-        temp: '12°C'
+        key: '3',
+        title: 'Tuesday',
+        data: [
+            {day: 'Tuesday', high: '12°C', low: '1°C'}
+        ]
     },
     {
-        id: '4',
-        title: '4:00am',
-        temp: '11°C'
+        key: '4',
+        title: 'Wednesday',
+        data: [
+            {day: 'Wednesday', high: '12°C', low: '1°C'}
+        ]
     },
     {
-        id: '5',
-        title: '5:00am',
-        temp: '10°C'
+        key: '5',
+        title: 'Thursday',
+        data: [
+            {day: 'Thursday', high: '12°C', low: '1°C'}
+        ]
     },
     {
-        id: '6',
-        title: '6:00am',
-        temp: '7°C'
+        key: '6',
+        title: 'Friday',
+        data: [
+            {day: 'Friday', high: '12°C', low: '1°C'}
+        ]
+    },
+    {
+        key: '7',
+        title: 'Saturday',
+        data: [
+            {day: 'Saturday', high: '12°C', low: '1°C'}
+        ]
     },
 ]
 
 const styles = StyleSheet.create({
-    contentContainer: {
-        display: "flex",
-        alignSelf: 'center',
+    DataList: {
+        display: 'flex',
         flex: 1,
-        // justifyContent: "space-around",
-        // backgroundColor: 'grey',
-        width: 100,
-        height: 10,
+        marginHorizontal: 10,
+        width: 350,
         }
-    });
+    }); 
 
 const Container = styled.View`
-    background-color: ${ props => props.color ? props.color : "white"};
+    background-color: #0066ff;
     display: flex;
-    flex-direction: column;
     width: 100%;
     height: 100%;
     justify-content: center;
     align-items: center;
 `
+const LocText = styled.Text`
+    display: flex;
+    color: white;
+    font-size: 20px;
+`
 const TempContainer = styled.View`
     display: flex;
-    justify-content: center;
     align-items: center;
-    background-color: black;
-    width: 200px;
-    height: 200px;
-    border-radius: 100px;
+    flexDirection: row;
 `
 const TempText = styled.Text`
     display: flex;
-    justify-content: center;
-    align-items: center;
     color: white;
     font-size: 80px;
 `
-const WeatherButton = styled.Button`
+const ConditionContainer = styled.View`
     display: flex;
-    height: 10px;
-    width: 100px;
+    flex-direction: row;
+`
+const InfoContainer = styled.View`
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    margin-top: 10px;
+    justify-content: space-evenly;
+`
+const InfoPanel = styled.View`
+    display: flex;
+    align-items: center;
+`
+const InfoText = styled.Text`
+    color: white;
+`
+const WeatherButton = styled.TouchableOpacity`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 3px
 `
 const WeatherText = styled.Text`
-    color: white;
+    color: ${ props => props.color ? props.color : "white"};
+    font-size: 22px;
+    display: flex;
+    margin-left: ${ props => props.marginLeft ? props.marginLeft: '0px'};
 `

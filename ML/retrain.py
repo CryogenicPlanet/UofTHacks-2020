@@ -1087,7 +1087,9 @@ def main(_):
          model_info['bottleneck_tensor_size'], model_info['quantize_layer'],
          True)
 
-  with tf.Session(graph=graph) as sess:
+  with tf.Session(graph=graph,config=tf.ConfigProto(
+  intra_op_parallelism_threads=20) as sess:
+
     # Set up the image decoding sub-graph.
     jpeg_data_tensor, decoded_image_tensor = add_jpeg_decoding(
         model_info['input_width'], model_info['input_height'],

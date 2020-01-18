@@ -115,7 +115,8 @@ MAX_NUM_IMAGES_PER_CLASS = 2 ** 27 - 1  # ~134M
 
 # The location where variable checkpoints will be stored.
 CHECKPOINT_NAME = '/tmp/_retrain_checkpoint'
-
+sess = tf.Session(config=tf.ConfigProto(
+  intra_op_parallelism_threads=20))
 
 def create_image_lists(image_dir, testing_percentage, validation_percentage):
   """Builds a list of training images from the file system.

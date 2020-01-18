@@ -1,14 +1,14 @@
 import tensorflow as tf, sys, os
-
+mainDir = "/home/rahultarak12345/UofTHacks-2020/"
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 image_path = sys.argv[1]
 # Read in the image_data
 image_data = tf.gfile.FastGFile(image_path, 'rb').read()
 # Loads label file, strips off carriage return
 label_lines = [line.rstrip() for line
-    in tf.gfile.GFile("/root/Inception/ML/retrained_labels.txt")]
+    in tf.gfile.GFile("{}ML/retrained_labels.txt".format(mainDir))]
 # Unpersists graph from file
-with tf.gfile.FastGFile("/root/Inception/ML/retrained_graph.pb", 'rb') as f:
+with tf.gfile.FastGFile("{}ML/retrained_graph.pb".format(mainDir), 'rb') as f:
     graph_def = tf.GraphDef()
     graph_def.ParseFromString(f.read())
     _ = tf.import_graph_def(graph_def, name='')

@@ -1,4 +1,5 @@
 from modules import database, clothes, weather
+import base64
 import json
 
 from flask import Flask, request
@@ -17,10 +18,11 @@ def get_clothes():
 
 @app.route('/setClothes', methods=["POST"])
 def set_clothes():
-    link = request.json['link']
+    img_encoded = request.json['image']
+    image = base64.decodestring(img_encoded)
     location = request.json['location']
-    clothes.put_classification(link, location)
+    clothes.put_classification(image, location)
     return ""
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=80)

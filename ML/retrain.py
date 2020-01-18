@@ -1088,7 +1088,7 @@ def main(_):
          True)
 
   with tf.Session(graph=graph,config=tf.ConfigProto(
-  intra_op_parallelism_threads=20) as sess:
+  intra_op_parallelism_threads=20)) as sess:
 
     # Set up the image decoding sub-graph.
     jpeg_data_tensor, decoded_image_tensor = add_jpeg_decoding(

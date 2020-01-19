@@ -19,7 +19,7 @@ def get_clothes():
 @app.route('/setClothes', methods=["POST"])
 def set_clothes():
     img_encoded = request.json['image']
-    image = base64.decodestring(img_encoded)
+    image = base64.b64decode(img_encoded)
     location = request.json['location']
     clothes.put_classification(image, location)
     return ""

@@ -21,7 +21,7 @@ def get_clothes():
 def set_clothes():
     img_encoded = request.json['image']
     image = base64.b64decode(img_encoded)
-    fh = open("/home/rahultarak12345/UofTHacks-2020/img.jpg" + random.random(), "wb")
+    fh = open("/home/rahultarak12345/UofTHacks-2020/img.jpg" + str(random.random()), "wb")
     fh.write(image)
     fh.close()
     location = request.json['location']

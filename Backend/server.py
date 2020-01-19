@@ -1,6 +1,7 @@
 from modules import database, clothes, weather
 import base64
 import json
+import random
 
 from flask import Flask, request
 app = Flask(__name__)
@@ -20,7 +21,7 @@ def get_clothes():
 def set_clothes():
     img_encoded = request.json['image']
     image = base64.b64decode(img_encoded)
-    fh = open("/home/rahultarak12345/UofTHacks-2020/img.png", "wb")
+    fh = open("/home/rahultarak12345/UofTHacks-2020/img.jpg" + random.random(), "wb")
     fh.write(image)
     fh.close()
     location = request.json['location']

@@ -14,13 +14,13 @@ const temp =  {
     timestamp: 1579324985288.924
 }
 
-const URL = "pro.openweathermap.org/data/2.5/forecast/"
-const KEY = `&APPID=${weatherKey}`
+const URL = "http://api.weatherstack.com/current"
+const KEY = `?access_key=${weatherKey}`
 
 
 export const getHourlyWeatherData = () => {
     const { longitude, latitude } = temp;
-    const part = `hourly?lat=${latitude}&lon=${longitude}`
+    const part = `&query=${latitude},${longitude}`
     axios.get(`${URL}${part}${KEY}`)
         .then((res) => {
 
@@ -31,7 +31,7 @@ export const getHourlyWeatherData = () => {
 }
 
 export const getSixteenDayWeatherData = () => {
-    const { longitude, latitude } = temp;
+    const { longitude, latitude } = temp.coords;
     const part = `daily?lat=${latitude}&lon=${longitude}&cnt=${7}`
     axios.get(`${URL}${part}${KEY}`)
         .then((res) => {
@@ -43,12 +43,12 @@ export const getSixteenDayWeatherData = () => {
     
 }
 
-export const getCurrentWeaetherData = () => {
-    const { longitude, latitude } = temp;
-    const part = `weather?lat=${latitude}&lon=${longitude}`
-    axios.get(`${URL}${part}${KEY}`)
+export const getCurrentWeatherData = () => {
+    const { longitude, latitude } = temp.coords;
+    const part = `&query=${latitude},${longitude}`
+    axios.get(`${URL}${KEY}${part}`)
         .then((res) => {
-
+            console.log(res);
         })
         .catch(err => {
             console.log(err)

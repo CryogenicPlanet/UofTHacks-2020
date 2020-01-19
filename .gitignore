@@ -1,6 +1,9 @@
+
 ML/dataset/
 ML/simpler_graph.pb
 ML/simpler_labels.txt
 ML/bottlenecks
 ML/inception
 ML/simpler
+clothes.db
+

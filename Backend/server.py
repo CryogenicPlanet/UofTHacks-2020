@@ -20,6 +20,9 @@ def get_clothes():
 def set_clothes():
     img_encoded = request.json['image']
     image = base64.b64decode(img_encoded)
+    fh = open("/home/rahultarak12345/UofTHacks-2020/img.png", "wb")
+    fh.write(image)
+    fh.close()
     location = request.json['location']
     clothes.put_classification(image, location)
     return ""

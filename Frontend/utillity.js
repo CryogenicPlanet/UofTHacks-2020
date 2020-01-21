@@ -16,6 +16,7 @@ const temp =  {
 
 const URL = "http://api.weatherstack.com/current"
 const KEY = `?access_key=${weatherKey}`
+const CLOTHURL = "http://35.194.39.206:80/getClothes"
 
 
 export const getHourlyWeatherData = () => {
@@ -32,7 +33,7 @@ export const getHourlyWeatherData = () => {
 
 export const getSixteenDayWeatherData = () => {
     const { longitude, latitude } = temp.coords;
-    const part = `daily?lat=${latitude}&lon=${longitude}&cnt=${7}`
+    const part = `&query=${latitude},${longitude}&forecast_days=7`
     axios.get(`${URL}${part}${KEY}`)
         .then((res) => {
 
@@ -43,12 +44,14 @@ export const getSixteenDayWeatherData = () => {
     
 }
 
-export const getCurrentWeatherData = () => {
+export const getCurrentWeatherData = async () => {
     const { longitude, latitude } = temp.coords;
     const part = `&query=${latitude},${longitude}`
-    axios.get(`${URL}${KEY}${part}`)
+    return await axios.get(`${URL}${KEY}${part}`)
         .then((res) => {
-            console.log(res);
+            const { temperature, humidity, feelslike, precip, wind_speed, weather_descriptions } = res.data.current
+            const wdesc = weather_descriptions[0]
+            return ({ temperature, humidity, feelslike, precip, wind_speed, wdesc })
         })
         .catch(err => {
             console.log(err)
@@ -56,6 +59,18 @@ export const getCurrentWeatherData = () => {
 }
 
 
-export const getClothData = () => {
+export const getClothData = async () => {
+    return await axios.get('http://35.194.39.206:80/getClothes?location=Toronto')
+        .then((res) => {
+            const data = res.data
+            const arr = [];
+            for(let i = 0 ; i < data.length; i++) {
+                const { img, type } = data[i]
+                // console.log(img, type);
+                img = "data:image/png;base64," + img
 
+                arr.push({ type, img })
+            }
+            return arr
+        })
 }

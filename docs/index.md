@@ -1,5 +1,7 @@
 # Clothology | [UofTHack2020](https://devpost.com/software/clothology)
 
+![Logo](https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/000/913/293/datas/gallery.jpg)
+
 ## Inspiration
 
 Toronto's temperature is extremely sporadic and as such, can sometimes get confusing when choosing clothes to wear. Sometimes its too hot for a thick jacket and too cold for a hoodie. We wanted to address this problem.
@@ -27,4 +29,5 @@ This experience was a great opportunity to further our teamwork skills and the a
 ## What's next for Clothology
 
 We will be working on this solution more in our freetime, and are looking to deploy our app by the end of Q2.
+
 

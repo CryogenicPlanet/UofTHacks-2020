@@ -1,6 +1,6 @@
 # Clothology | [UofTHack2020](https://devpost.com/software/clothology)
 
-![Logo](https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/000/913/293/datas/gallery.jpg)
+![](http://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/000/913/293/datas/gallery.jpg)
 
 ## Inspiration
 
